@@ -1,6 +1,12 @@
 package repository
 
+import (
+	"github.com/bwjson/toDoApp"
+	"github.com/jmoiron/sqlx"
+)
+
 type Authorization interface {
+	CreateUser(user toDoApp.User) (int, error)
 }
 
 type TaskList interface {
@@ -15,6 +21,8 @@ type Repository struct {
 	TaskItem
 }
 
-func NewRepository() *Repository {
-	return &Repository{}
+func NewRepository(db *sqlx.DB) *Repository {
+	return &Repository{
+		Authorization: NewAuthPostgres(db),
+	}
 }

@@ -1,8 +1,12 @@
 package service
 
-import "github.com/bwjson/toDoApp/pkg/repository"
+import (
+	"github.com/bwjson/toDoApp"
+	"github.com/bwjson/toDoApp/pkg/repository"
+)
 
 type Authorization interface {
+	CreateUser(user toDoApp.User) (int, error)
 }
 
 type TaskList interface {
@@ -18,5 +22,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 }
