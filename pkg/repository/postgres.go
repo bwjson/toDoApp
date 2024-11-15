@@ -16,9 +16,9 @@ type Config struct {
 
 const (
 	usersTable      = "public.users"
-	todoListsTable  = "public.todo_lists"
+	tasksListsTable = "public.task_lists"
 	usersListsTable = "public.users_lists"
-	todoItemsTable  = "public.todo_items"
+	todoItemsTable  = "public.task_items"
 	listsItemsTable = "public.lists_items"
 )
 
