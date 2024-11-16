@@ -20,6 +20,11 @@ type TaskList interface {
 }
 
 type TaskItem interface {
+	Create(userId, listId int, input toDoApp.TaskItem) (int, error)
+	GetAll(userId, listId int) ([]toDoApp.TaskItem, error)
+	GetById(userId, itemId int) (toDoApp.TaskItem, error)
+	Delete(userId int, itemId int) error
+	Update(userId, itemId int, input toDoApp.UpdateItemInput) error
 }
 
 type Service struct {
@@ -32,5 +37,6 @@ func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
 		TaskList:      NewTaskListService(repos.TaskList),
+		TaskItem:      NewTaskItemService(repos.TaskItem, repos.TaskList),
 	}
 }

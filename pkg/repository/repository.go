@@ -19,6 +19,11 @@ type TaskList interface {
 }
 
 type TaskItem interface {
+	Create(listId int, input toDoApp.TaskItem) (int, error)
+	GetAll(userId, listId int) ([]toDoApp.TaskItem, error)
+	GetById(userId, itemId int) (toDoApp.TaskItem, error)
+	Delete(userId, itemId int) error
+	Update(userId, itemId int, input toDoApp.UpdateItemInput) error
 }
 
 type Repository struct {
@@ -31,5 +36,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
 		TaskList:      NewTaskListPostgres(db),
+		TaskItem:      NewTaskItemPostgres(db),
 	}
 }
